@@ -26,22 +26,6 @@
                     </div>
                 @endforeach
             </div>
-    
-            <form action="/spotify/makesetlist" method="GET">
-                @csrf
-                <div class="SetlistName">
-                    <h2>SetlistName</h2>
-                    <input type="text" name="setlist_name" placeholder="Livename" />
-                </div>
-                <input type="submit" value="保存"/>
-            </form>
-    
-            <div class="serch">
-                <form action="/spotify/artist" method="GET">
-                    <input type="text" name="search_song">
-                    <input type="submit" name="submit" value="名前を検索する">
-                </form>
-            </div>
         </div>
        
 

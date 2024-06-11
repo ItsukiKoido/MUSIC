@@ -22,7 +22,7 @@ class SpotifyController extends Controller
             'Authorization'=> 'Basic ' . $base64,
         ])->asForm()->post('https://accounts.spotify.com/api/token', [
             'code' => $code,
-            'redirect_uri' => 'https://c17039964ea14ad1a4cc905104872779.vfs.cloud9.us-east-1.amazonaws.com/spotify-test',
+            'redirect_uri' => env("REDIRECT_URI"),
             'grant_type' => 'authorization_code',
         ]);
         
@@ -159,6 +159,7 @@ class SpotifyController extends Controller
         $live = json_decode($request->input('live'));
         session(['live' => $live]);
         $state = bin2hex(random_bytes(16));
-        return redirect("https://accounts.spotify.com/authorize?client_id=190f5fe85108404c8ad184ae8358cdb5&response_type=code&redirect_uri=https://c17039964ea14ad1a4cc905104872779.vfs.cloud9.us-east-1.amazonaws.com/spotify-test&state={$state}&scope=playlist-modify-private,playlist-modify-public")->with(["artist_name"]);
+        $redirect_uri = env('REDIRECT_URI');
+        return redirect("https://accounts.spotify.com/authorize?client_id=190f5fe85108404c8ad184ae8358cdb5&response_type=code&redirect_uri={$redirect_uri}&state={$state}&scope=playlist-modify-private,playlist-modify-public")->with(["artist_name"]);
     }
 }
