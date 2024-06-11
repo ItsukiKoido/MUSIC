@@ -39,7 +39,7 @@ class SpotifyController extends Controller
         $profileDataJson = $profileData->json();
         
         // プロフィールデータの出力
-        //dd($profileDataJson, $accessToken, $access_token);
+        dd($profileDataJson, $accessToken, $access_token);
         
         session(['access_token' => $access_token, 'profileDataJson' => $profileDataJson]);
         
