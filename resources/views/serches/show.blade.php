@@ -28,7 +28,7 @@
                         <div class='setlist'>
                             <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/{{ $playlist['spotify_id'] }}" width="500" height="370" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
                         </div>
-                        <form id="form_{{$playlist->id}}" action="/spotify/{{$playlist->id}}" method="POST">
+                        <form id="form_{{$playlist->id}}" action="/spotify/{{$playlist->id}}/delete" method="POST">
                             @csrf
                             @method('DELETE')
                             <button type="button" onclick="deletePlaylist({{ $playlist->id }})">delete</button> 
@@ -37,7 +37,7 @@
                             function deletePlaylist(id) {
                                 'use strict';
                                 
-                                if (confirm('登録したスレッドを削除しますか？')) {
+                                if (confirm('登録したプレイリストを削除しますか？')) {
                                     document.getElementById(`form_${id}`).submit();
                                 }
                             }

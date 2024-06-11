@@ -60,7 +60,8 @@ Route::controller(SpotifyController::class)->middleware(['auth'])->group(functio
     Route::get('/spotify/serch', 'serch');
     Route::get('/spotify/getplaylist', 'getPlaylist');
     Route::post('/spotify/store', 'store');
-    Route::delete('/spotify/{playlist}', 'deletePlaylist');
+    Route::get('/spotify/show', 'show');
+    Route::delete('/spotify/{playlist}/delete', 'deletePlaylist');
 });
 
 Route::middleware('auth')->group(function () {
