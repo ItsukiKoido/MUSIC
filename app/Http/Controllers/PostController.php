@@ -44,7 +44,8 @@ class PostController extends Controller
     
     public function threadPost(Like $like)
     {
-        return view('threads.chat')->with(['like' => $like]);
+        $likes = Like::all();
+        return view('threads.chat')->with(['like' => $like, 'likes' => $likes]);
     }
     
     public function storePost(Request $request, Like $like)
@@ -63,9 +64,10 @@ class PostController extends Controller
         return redirect('/' . $like->id . '/post');
     }
     
-    public function comment(Post $post)
+    public function comment(Post $post, Like $like)
     {
-        return view('threads.comment')->with(['post' => $post]);
+        $likes = Like::all();
+        return view('threads.comment')->with(['post' => $post, 'likes' => $likes]);
     }
     
     public function storeComment(Request $request, Post $post)

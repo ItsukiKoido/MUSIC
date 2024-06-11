@@ -14,8 +14,7 @@
             <div class="playlist-container">
                 @foreach ($playlists as $playlist)
                     <div class="playlist">
-                        <h2>{{ $playlist['name'] }}</h2>
-                        
+
                         <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/{{ $playlist['id'] }}" width="500" height="370" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
                         <form action="/spotify/store" method="POST">
                             @csrf

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use GuzzleHttp\Client;
+use App\Models\Artist;
 use App\Models\Playlist;
 use Illuminate\Support\Facades\Auth;
 
@@ -47,7 +48,8 @@ class SpotifyController extends Controller
     
     public function index()
     {
-        return view('spotifys.index');
+        $playlists = Playlist::all();
+        return view('spotifys.index')->with(['playlists' => $playlists]);
     }
     
     public function getPlaylist()
@@ -118,24 +120,39 @@ class SpotifyController extends Controller
     {
         $spotify_id = $request->input('spotify_id');
         $live = session('live');
-    
+        
         $input['live_id'] = $live->id;
         $input['spotify_id'] = $spotify_id;
-        // 新しいライブのインスタンスを作成して保存
-        $playlist = new Playlist;
-        $playlist->fill($input)->save();
         
-        return view(spotifys.index);
+        // 既存のプレイリストを探す
+        $existing_playlist = Playlist::withTrashed()->where('spotify_id', $spotify_id)->first();
+        
+        //dd($existing_playlist, $spotify_id);
+        
+        if ($existing_playlist) {
+            // 既存のプレイリストが削除されている場合、それを更新して復元する
+            if ($existing_playlist->deleted_at !== null) {
+                $existing_playlist->restore();
+            }
+            $existing_playlist->update($input);
+        } else {
+            // 新しいプレイリストを作成して保存
+            $playlist = new Playlist;
+            $playlist->fill($input)->save();
+        }
+        return redirect('/spotify/show');
     }
     
-    public function deletePlaylist(Playlist $playlist){
-        dd($playlist);
+    public function deletePlaylist(Request $request, Playlist $playlist)
+    {
         $playlist->delete();
-        return view(serches.show);
+        return redirect('/spotify/show');
     }
-    
-    public function errors(){
-        dd("error");
+
+    public function show(Request $request)
+    {
+        $artist = Artist::first();
+        return view('serches.show')->with(['artist' => $artist]);
     }
     
     public function spotifyLogin(Request $request){
