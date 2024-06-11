@@ -159,6 +159,6 @@ class SpotifyController extends Controller
         $live = json_decode($request->input('live'));
         session(['live' => $live]);
         $state = bin2hex(random_bytes(16));
-        return redirect("https://accounts.spotify.com/authorize?client_id=190f5fe85108404c8ad184ae8358cdb5&response_type=code&redirect_uri=https://live-app-998bc1d15ef2.herokuapp.com//spotify-test&state={$state}&scope=playlist-modify-private,playlist-modify-public")->with(["artist_name"]);
+        return redirect("https://accounts.spotify.com/authorize?client_id=190f5fe85108404c8ad184ae8358cdb5&response_type=code&redirect_uri=https://live-app-998bc1d15ef2.herokuapp.com/spotify-test&state={$state}&scope=playlist-modify-private,playlist-modify-public")->with(["artist_name"]);
     }
 }
