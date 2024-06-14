@@ -5,6 +5,7 @@
         <title>likeThread</title>
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
+        @vite(['resources/css/app.css', 'resources/js/app.js'])
         <style>
             body {
                 margin: 0;
@@ -17,7 +18,7 @@
                 left: 0;
                 width: 100%;
                 background-color: #333;
-                color: #fffafa;
+                color: #f0ffff;
                 padding: 10px 20px;
                 z-index: 1000; 
             }
@@ -69,13 +70,13 @@
                 width: 30%;
                 float: left;
                 overflow-y: auto;
-                background-color: #fffafa;
+                background-color: #f0f8ff;
             }
             main {
                 width: 70%;
                 float: left;
                 overflow-y: auto;
-                background-color: #f0f8ff;
+                background-color: #f5f5f5;
             }
             .inside-line {
               width : 100% ;
@@ -84,7 +85,7 @@
               text-align: center;
               outline : 2px solid #2f4f4f; /* 線の太さ・線状・色 */
               outline-offset : -7px; /* どれだけ内側に線を表示したいかを負の値で指定 */
-              background : #f08080; /* ボックスやボタンの背景色 */
+              background : #3399ff; /* ボックスやボタンの背景色 */
               margin-top: 25px; 
               color: #f0f8ff;
             }
@@ -139,7 +140,7 @@
             
         </style>
     </head>
-    <body>
+    <body class="m-0">
         <header id="header">
             <h1>Header</h1>
             <p class="button"><span>
@@ -157,6 +158,9 @@
                         <a href="/{{$like->id}}/post">
                             {{$like->thread->live->artist->name}} / {{$like->thread->live->livename}} / {{$like->thread->threadname}}
                         </a>
+                        <button class="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-600 to-blue-500 group-hover:from-purple-600 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800">
+                        button
+                        </button>
                         <form id="form_{{$like->id}}" action="/{{$like->id}}" method="POST">
                             @csrf
                             @method('DELETE')
