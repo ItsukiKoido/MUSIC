@@ -20,7 +20,7 @@ use App\Http\Controllers\SpotifyController;
 Route::get('/', function () {
     return redirect('/register');
 })->middleware('guest');
-
+Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
 // 認証後はダッシュボードにリダイレクト
 
 
